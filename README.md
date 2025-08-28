@@ -29,6 +29,8 @@ A simple Python tool that allows you to rank your favorite things by simply ente
 ## Features Planned to be Added in the Future
 
 - Add support to take the input from a .txt or .csv file available on the machine directly
+- Export the comparison results to a .txt or .csv file
+- Export the comparison history to a .txt file
 
 ## Contributing
 
