@@ -33,6 +33,7 @@ A simple Python tool that allows you to rank your favorite things by simply ente
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
+Contribution for database is also welcome! You are welcome to add any database you wannt that is either .txt or .csv, a single column and related to entirely a single topic that are popular and can be used by anyone to rank as their wish. Please keep the database updated with the lastest info if you do decide to add one 
 
 ## License
 
