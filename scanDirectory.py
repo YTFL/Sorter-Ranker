@@ -1,0 +1,1 @@
+#The functionality to scan a directory for files to read will be implemented here

@@ -2,16 +2,18 @@ import math
 
 # Globals
 def _init_globals():
-    global comparison_cache, comparison_count, denom, allow_tie_neither
+    global comparison_cache, comparison_count, denom, allow_tie_neither, comparisons_left
     comparison_cache = {}
     comparison_count = 0
     denom = 0  # dynamic denominator, changes if tie/neither chosen
     allow_tie_neither = True
+    comparisons_left = None
 
 comparison_cache = {}
 comparison_count = 0
 denom = 0
 allow_tie_neither = True
+comparisons_left = None
 
 # result codes: -1 => a before b, 1 => b before a, 0 => tie, 2 => neither
 
@@ -22,7 +24,7 @@ def theoretical_min_comparisons(n):
 
 
 def ask_compare(a, b, total_required):
-    global comparison_count, denom
+    global comparison_count, denom, comparisons_left
 
     if (a, b) in comparison_cache:
         return comparison_cache[(a, b)]
@@ -39,9 +41,24 @@ def ask_compare(a, b, total_required):
     comparison_count += 1
     denom = max(denom, total_required)
 
-    pct = 100.0 * comparison_count / denom if denom > 0 else 100.0
-    if pct > 100.0:
-        pct = 100.0
+    # Dynamically track comparisons left
+    if comparisons_left is not None:
+        comparisons_left -= 1
+        total = comparison_count + comparisons_left
+    else:
+        # Estimate: use denom until we know the final count
+        total = max(denom, comparison_count)
+        comparisons_left = None
+
+    # If comparisons_left is not set, try to estimate it
+    if comparisons_left is None:
+        pct = 100.0 * comparison_count / total if total > 0 else 100.0
+    else:
+        # Only reach 100% on the last comparison
+        if comparisons_left == 0:
+            pct = 100.0
+        else:
+            pct = 100.0 * comparison_count / (comparison_count + comparisons_left)
 
     print(f"\nComparison #{comparison_count} ({pct:.2f}%)")
     print(f"1: {a}")
@@ -122,7 +139,15 @@ def interactive_rank(items, enable_tie_neither=True):
     global allow_tie_neither
     allow_tie_neither = enable_tie_neither
 
+    # Set up comparisons_left for dynamic percentage
+    global comparisons_left
+    # The maximum number of comparisons left is unknown at the start, so set to None
+    comparisons_left = None
+
     ranked = merge_sort_interactive(items, total_required)
+
+    # After sorting, set comparisons_left to 0 to ensure last comparison is 100%
+    comparisons_left = 0
 
     optimal = total_required
     actual = comparison_count

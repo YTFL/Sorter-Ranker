@@ -28,9 +28,16 @@ A simple Python tool that allows you to rank your favorite things by simply ente
 
 ## Features Planned to be Added in the Future
 
-- Add support to take the input from a .txt or .csv file available on the machine directly
-- Export the comparison results to a .txt or .csv file
-- Export the comparison history to a .txt file
+- Add support to take the input from a .csv file available on the machine directly (mention file name if file available in the same directory as the program or downloads, otherwise mention the file name with the path by the user)
+- Export the comparison results to a .txt or .csv file (to downloads by default or path specified by the user)
+- Export the comparison history to a .txt file (to downloads or path specified by the user)
+- Scan for supported documents in a given path (or downloads and the program directory by default)
+
+## Latest Features
+- Added support for reading from text files directly from a specified path by the user\
+
+## Known Issues
+- The percentage being displayed is stuck at 100% for overhead comparisons instead of being adjusted dynamically
 
 ## Contributing
 
